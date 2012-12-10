@@ -13,3 +13,27 @@ MAX_DIR_STACK_SIZE=10
 function stable() {
   /google/data/ro/projects/testing/tap/scripts/last_green_cl.par --project=$1
 }
+
+
+source ~/bin/preexec.bash
+preexec () {
+  true # No-op
+}
+precmd () {
+  # Share history among terminals.
+  history -a
+
+  # Maintain $G, which is the nearest google3 directory.
+  G=`realpath "$PWD"`
+  while [ "${G##*/}" != "google3" ]; do
+    if [ "${G}x" = "x" ]; then
+      break
+    fi
+    G="${G%/*}"
+  done
+}
+preexec_install
+# PROMPT_COMMAND="history -n; history -a"
+
+# Blaze build from parent google3 directory.
+# source ~/bin/bb-complete.bash
