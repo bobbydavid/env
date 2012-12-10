@@ -1,0 +1,22 @@
+[
+  // rdm: ssh keys.
+  { "keys": ["ctrl+h"], "command": "left_delete" },
+
+  // rdm: swap the functionality of these! yipe.
+  { "keys": ["ctrl+pagedown"], "command": "next_view_in_stack" },
+  { "keys": ["ctrl+pageup"], "command": "prev_view_in_stack" },
+  { "keys": ["ctrl+tab"], "command": "next_view" },
+  { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+
+  // rdm: jump word-by-word using Vim arrows.
+  { "keys": ["alt+h"], "command": "move", "args": {"by": "subwords", "forward": false} },
+  { "keys": ["alt+l"], "command": "move", "args": {"by": "subword_ends", "forward": true} },
+
+  // rdm: scroll up/down using Vim shortcuts.
+  { "keys": ["ctrl+y"], "command": "scroll_lines", "args": {"amount": 1.0 } },
+  { "keys": ["ctrl+e"], "command": "scroll_lines", "args": {"amount": -1.0 } },
+
+  // rdm: fix confusion with ctrl-r being used for re-do in Vim.
+  { "keys": ["ctrl+r"], "command": "redo" },
+  { "keys": ["ctrl+shift+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} }
+ ]
