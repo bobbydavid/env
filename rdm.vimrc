@@ -42,7 +42,8 @@ set expandtab
 execute "set tabstop=".tabsize
 execute "set shiftwidth=".tabsize
 execute "set softtabstop=".tabsize
-set autoindent
+set autoindent smartindent
+autocmd FileType Makefile set noexpandtab
 
 
 "

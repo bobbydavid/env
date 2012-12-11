@@ -3,6 +3,7 @@
 	[
 		"DocBlockr",
 		"Package Control",
-		"SublimeBlockCursor"
+		"SublimeBlockCursor",
+		"TrailingSpaces"
 	]
 }
