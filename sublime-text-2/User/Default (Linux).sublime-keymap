@@ -1,22 +1,63 @@
 [
-  // rdm: ssh keys.
+  // allow use of ctrl+h to simulate backspace.
   { "keys": ["ctrl+h"], "command": "left_delete" },
+  { "keys": ["ctrl+h"], "command": "set_motion", "args": {
+    "motion": "vi_move_by_characters",
+    "motion_args": {"forward": false, "extend": true }},
+    "context": [{"key": "setting.command_mode"}]
+  },
 
-  // rdm: swap the functionality of these! yipe.
+  // page up/down using Vim navigation.
+  { "keys": ["ctrl+f"], "command": "set_motion", "args": {
+    "motion": "move",
+    "motion_args": {"by": "pages", "forward": true, "extend": true }},
+    "context": [{"key": "setting.command_mode"}] },
+  { "keys": ["ctrl+b"], "command": "set_motion", "args": {
+    "motion": "move",
+    "motion_args": {"by": "pages", "forward": false, "extend": true }},
+    "context": [{"key": "setting.command_mode"}]
+  },
+
+  // swap the functionality of these! yipe.
   { "keys": ["ctrl+pagedown"], "command": "next_view_in_stack" },
   { "keys": ["ctrl+pageup"], "command": "prev_view_in_stack" },
   { "keys": ["ctrl+tab"], "command": "next_view" },
   { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
 
-  // rdm: jump word-by-word using Vim arrows.
+  // jump word-by-word using Vim arrows.
   { "keys": ["alt+h"], "command": "move", "args": {"by": "subwords", "forward": false} },
   { "keys": ["alt+l"], "command": "move", "args": {"by": "subword_ends", "forward": true} },
 
-  // rdm: scroll up/down using Vim shortcuts.
+  // scroll up/down using Vim shortcuts.
   { "keys": ["ctrl+y"], "command": "scroll_lines", "args": {"amount": 1.0 } },
   { "keys": ["ctrl+e"], "command": "scroll_lines", "args": {"amount": -1.0 } },
 
-  // rdm: fix confusion with ctrl-r being used for re-do in Vim.
+  // fix confusion with ctrl-r being used for re-do in Vim.
   { "keys": ["ctrl+r"], "command": "redo" },
-  { "keys": ["ctrl+shift+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} }
+  { "keys": ["ctrl+shift+r"],
+    "command": "show_overlay",
+    "args": {"overlay": "goto", "text": "@"} },
+
+  // navigate panels using Vim-style commands. disable ctrl+w in command mode.
+  // also Sublime handles ctrl-dragging differently, so include the option if I
+  // forget to let go of ctrl before I press l or h.
+  // TODO: Go to next/prev or don't move if none exists, instead of hard-coding
+  //       group 0 and 1.
+  { "keys": ["ctrl+w"], "command": "no-op"},
+  { "keys": ["ctrl+w", "l"],
+    "command": "focus_group",
+    "args": { "group": 1},
+    "context": [{"key": "setting.command_mode"}] },
+  { "keys": ["ctrl+w", "h"],
+    "command": "focus_group",
+    "args": { "group": 0},
+    "context": [{"key": "setting.command_mode"}] },
+  { "keys": ["ctrl+w", "ctrl+l"],
+    "command": "focus_group",
+    "args": { "group": 1},
+    "context": [{"key": "setting.command_mode"}] },
+  { "keys": ["ctrl+w", "ctrl+h"],
+    "command": "focus_group",
+    "args": { "group": 0},
+    "context": [{"key": "setting.command_mode"}] }
  ]
