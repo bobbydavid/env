@@ -1,7 +1,11 @@
 {
 	"installed_packages":
 	[
+		"CoffeeScript",
 		"DocBlockr",
+		"Dust.js",
+		"Jade",
+		"Jade Snippets",
 		"Package Control",
 		"SublimeBlockCursor",
 		"TrailingSpaces"
