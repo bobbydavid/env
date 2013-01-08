@@ -21,9 +21,10 @@ alias s='cd ..'
 alias open='gnome-open' # osx-style open of files in gnome.
 alias ls='ls -F' # -F appends the file-type character.
 
-# Temporary (?) redirection to force me to use Sublime2.
 export EDITOR='vim'
-alias vim='subl'
+# Redirection to force me to use Sublime2, as long as
+# a DISPLAY is defined.
+[ -z "$DISPLAY" ] || alias vim='subl'
 
 # Script to display numbered directories, truncated to fit screen.
 alias d='. ~/bin/dirs-good.bash'
