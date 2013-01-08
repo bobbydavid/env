@@ -11,3 +11,20 @@
 
   3. Replace the `User` package with a soft-link to this directory. On Linux,
      this would be `~/.config/sublime-text-2/Packages/User`.
+
+
+## How to install TimeLogger
+
+1. Create softlink in `~/bin` for `rdm_log.sh`.
+2. Create `~/.config/autostart/tlogger.sh.desktop` with the contents:
+    [Desktop Entry]
+    Type=Application
+    Exec=/home/rdm/env/bin/tlogger.sh
+    Hidden=false
+    X-GNOME-Autostart-enabled=true
+    Name[en_US]=watcher
+    Name=tlogger
+    Comment[en_US]=
+    Comment=
+3. To also run in SSH, create `~/.ssh/rc` with the contents:
+    /home/rdm/env/bin/tlogger.sh &
