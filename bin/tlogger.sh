@@ -8,27 +8,35 @@ if [ ! -x "$RDM_LOG" ]; then
 fi
 
 # Begin by logging in:
-"$RDM_LOG" LOGIN $TERM
+"$RDM_LOG" "LOGIN $TERM $$"
 
 # Handle signals by logging:
-trap "$RDM_LOG 'LOGOUT $TERM'; exit" SIGHUP
-trap "$RDM_LOG 'SIGINT'; exit 1" SIGINT
-trap "$RDM_LOG 'SIGTERM'; exit 1" SIGTERM
+trap "$RDM_LOG 'LOGOUT $TERM $$'; exit" SIGHUP
+trap "$RDM_LOG 'SIGINT $$'; exit 1" SIGINT
+trap "$RDM_LOG 'SIGTERM $$'; exit 1" SIGTERM
 
 # rdm: if there is no display, then sleep until a signal arrives.
 [ -z "$DISPLAY" ] && sleep 100000d
 
 # rdm: otherwise, monitor gnome for screen locking. Log these events.
-dbus-monitor --session "type='signal',interface='org.gnome.ScreenSaver'" | \
+dbus-monitor --session \
+    "type='signal',interface='org.gnome.ScreenSaver',member='ActiveChanged'" | \
   (
     while true; do
       read X;
-      if echo $X | grep "boolean true" &> /dev/null; then
-        "$RDM_LOG" "SCREEN_LOCKED"
-      elif echo $X | grep "boolean false" &> /dev/null; then
-        "$RDM_LOG" "SCREEN_UNLOCKED"
+      if egrep -q "ScreenSaver" <<<"$X"; then
+        read Y;
+        if egrep -q "boolean true" <<<"$Y"; then
+          "$RDM_LOG" "SCREEN_LOCKED"
+        elif egrep -q "boolean false" <<<"$Y"; then
+          "$RDM_LOG" "SCREEN_UNLOCKED"
+        fi
+      elif egrep -q "Disconnected" <<<"$X"; then
+        # exit from the loop, not the script.
+        exit
       fi
     done
   )
 
-echo "How did I get to here?!?"
+# Explicitly trigger our own SIGHUP handler.
+kill -SIGHUP "$$"
