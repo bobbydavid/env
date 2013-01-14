@@ -3,7 +3,7 @@
 
 LOGFILE="$HOME/EVENTS"
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
   1="unspecified"
 fi
 echo -e "$(date)\t$@" >>"$LOGFILE"
