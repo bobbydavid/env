@@ -37,11 +37,11 @@ Bundle 'https://github.com/cespare/zenburn.git'
 " TAB & INDENT BEHAVIOR
 "
 filetype plugin indent on
-let tabsize=2
+let s:tabsize=2
 set expandtab
-execute "set tabstop=".tabsize
-execute "set shiftwidth=".tabsize
-execute "set softtabstop=".tabsize
+execute "set tabstop=".s:tabsize
+execute "set shiftwidth=".s:tabsize
+execute "set softtabstop=".s:tabsize
 set autoindent smartindent
 autocmd FileType Makefile set noexpandtab
 
