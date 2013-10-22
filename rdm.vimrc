@@ -80,7 +80,8 @@ set nowrap
 
 "
 " BACKUP FILES & SWAPFILES
-" Save with full path in .vim directories.
+" Save with full path in .vim directories. If this is the first time running,
+" create the ~/.vim/{swap,backup} directories.
 "
 set directory=~/.vim/swap//,/tmp//,.
 set backupdir=~/.vim/backup//,/tmp//,.
@@ -89,7 +90,9 @@ set backupdir=~/.vim/backup//,/tmp//,.
 " GOOGLE-SPECIFIC STUFF
 "
 
-if filereadable("~/.vimrc-google")
-  source ~/.vimrc-google
+" Note to self: Remember previous google-specific stuff was at ~/.vimrc-google.
+let s:commonGoogleConf="/usr/share/vim/google/google.vim"
+if filereadable("/usr/share/vim/google/google.vim")
+  source /usr/share/vim/google/google.vim
 end
 
