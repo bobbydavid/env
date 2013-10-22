@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# append to the history file, don't overwrite it
+shopt -s histappend
 
 # Don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -17,14 +19,29 @@ echo $PATH | egrep "(^|:)$HOME/bin(:|$)">/dev/null || PATH=$PATH:~/bin
 HISTSIZE=
 HISTFILESIZE=
 
-alias s='cd ..'
 alias open='gnome-open' # osx-style open of files in gnome.
 alias ls='ls -F' # -F appends the file-type character.
 
+# Function to back up the directory tree quickly.
+function s {
+  local LVLS=$1
+  # If no argument is given, assume 1.
+  [[ -z "$LVLS" ]] && LVLS=1
+  # Verify that the argument is a positive integer.
+  if [[ "$LVLS" =~ ^[1-9][0-9]*$ ]]; then
+    local IDX PATHSTRING='..'
+    for (( IDX = 2; IDX <= $LVLS; IDX++ )); do
+      PATHSTRING="$PATHSTRING/.."
+    done
+    eval "cd $PATHSTRING"
+  else
+    echo "Non-integer: $LVLS" >&2
+  fi
+}
+
 export EDITOR='vim'
-# Redirection to force me to use Sublime2, as long as
-# a DISPLAY is defined.
-[ -z "$DISPLAY" ] || alias vim='subl'
+# Redirection to force me to use gvim, as long as a DISPLAY is defined.
+[ -z "$DISPLAY" ] || alias vim='gvim'
 
 # Script to display numbered directories, truncated to fit screen.
 alias d='. ~/bin/dirs-good.bash'
