@@ -39,6 +39,10 @@ function s {
   fi
 }
 
+# Fix global menu bug. See:
+# http://askubuntu.com/questions/132977/how-to-get-global-application-menu-for-gvim
+function gvim() { (/usr/bin/gvim -f "$@" &) }
+
 export EDITOR='vim'
 # Redirection to force me to use gvim, as long as a DISPLAY is defined.
 [ -z "$DISPLAY" ] || alias vim='gvim'
