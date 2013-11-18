@@ -1,4 +1,10 @@
+"
 " Note: These lines must come first!
+" Note: I found some good tips at https://github.com/samnang/dotfiles/blob/master/vimrc
+"
+" DO NOT ADD CHANGES HERE UNLESS THEY ARE UNIVERSAL.
+" Otherwise, add them in a file called ~/.local.bashrc which this script
+" sources.
 set nocompatible
 filetype off
 
@@ -26,31 +32,48 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 " BEGIN: Vundle bundles
+Bundle 'https://github.com/kien/ctrlp.vim'
 Bundle 'https://github.com/ciaranm/inkpot.git'
 Bundle 'https://github.com/cespare/zenburn.git'
+Bundle 'https://github.com/vim-ruby/vim-ruby'
+Bundle 'https://github.com/pangloss/vim-javascript'
+Bundle 'https://github.com/othree/html5.vim'
 " END: Vundle bundles
 
 
+set encoding=utf-8
+syntax enable
+filetype plugin indent on  " load file type plugins + indentation
 
+set showmode  " display what mode we're in
+set showmatch  " show matching brackets/parentheses
 
-"
-" TAB & INDENT BEHAVIOR
-"
-filetype plugin indent on
-let s:tabsize=2
-set expandtab
-execute "set tabstop=".s:tabsize
-execute "set shiftwidth=".s:tabsize
-execute "set softtabstop=".s:tabsize
-set autoindent smartindent
+set nowrap  " do not wrap 
+set tabstop=2 shiftwidth=2  " a tab is two spaces
+set expandtab  " use spaces instead of tab characters
 autocmd FileType Makefile set noexpandtab
+set autoindent  " match indentation of previous line
+" set smartindent  " indent based on brackets
 
+set hlsearch  " highlight search terms
+set ignorecase smartcase  " Ignore case if entire search term is lower case
+
+set list listchars=tab:»\ ,trail:·  " show tabs and trailing spaces
+hi SpecialKey ctermfg=Red
+
+set hidden
+set title
+set number
+set ruler
+"set cursorline  " underline the line with the cursor
+set history=1000  " make history huge
+
+set nobackup nowritebackup  " No backup files before overwriting
+set directory=~/.vim/tmp  " keep swap files in one location
 
 "
-" SYNTAX HIGHLIGHTING & COLOR SCHEME
+" gvim-specific settings
 "
-syntax on
-filetype on
 if has('gui_running')
   " gvim only
   set lines=65
@@ -58,41 +81,7 @@ if has('gui_running')
 endif
 
 
-"
-" SEARCHING
-"
-set ignorecase smartcase
-
-
-"
-" WHITESPACE & FORMATTING
-"
-set list listchars=tab:»\ ,trail:·
-hi SpecialKey ctermfg=Red
-
-
-"
-" MISC
-"
-set encoding=utf8
-set nowrap
-
-
-"
-" BACKUP FILES & SWAPFILES
-" Save with full path in .vim directories. If this is the first time running,
-" create the ~/.vim/{swap,backup} directories.
-"
-set directory=~/.vim/swap//,/tmp//,.
-set backupdir=~/.vim/backup//,/tmp//,.
-
-"
-" GOOGLE-SPECIFIC STUFF
-"
-
 " Note to self: Remember previous google-specific stuff was at ~/.vimrc-google.
-let s:commonGoogleConf="/usr/share/vim/google/google.vim"
-if filereadable("/usr/share/vim/google/google.vim")
-  source /usr/share/vim/google/google.vim
+if filereadable("~/.local.vimrc")
+  source ~/.local.vimrc
 end
-

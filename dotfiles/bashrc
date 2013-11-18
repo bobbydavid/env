@@ -1,5 +1,5 @@
 ######################################
-#        RDM BASH CONFIG FILE        #
+#          BASH CONFIG FILE          #
 ######################################
 
 # If not running interactively, don't do anything
@@ -22,7 +22,8 @@ HISTFILESIZE=
 alias open='gnome-open' # osx-style open of files in gnome.
 alias ls='ls -F' # -F appends the file-type character.
 
-# Function to back up the directory tree quickly.
+# Command to back up directory structure quickly.
+# s == `cd ..`, s 2 == `cd ../..`, s 3 == `cd ../../..`, etc.
 function s {
   local LVLS=$1
   # If no argument is given, assume 1.
@@ -44,11 +45,9 @@ function s {
 function gvim() { (/usr/bin/gvim -f "$@" &) }
 
 export EDITOR='vim'
+alias gvim='mvim'
 # Redirection to force me to use gvim, as long as a DISPLAY is defined.
 [ -z "$DISPLAY" ] || alias vim='gvim'
-
-# Script to display numbered directories, truncated to fit screen.
-alias d='. ~/bin/dirs-good.bash'
 
 # Git aliases.
 alias gs="git status"
