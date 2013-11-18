@@ -46,8 +46,9 @@ function gvim() { (/usr/bin/gvim -f "$@" &) }
 
 export EDITOR='vim'
 alias gvim='mvim'
+alias vim='gvim'
 # Redirection to force me to use gvim, as long as a DISPLAY is defined.
-[ -z "$DISPLAY" ] || alias vim='gvim'
+# [ -z "$DISPLAY" ] || alias vim='gvim'
 
 # Git aliases.
 alias gs="git status"
